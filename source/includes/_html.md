@@ -21,7 +21,7 @@ On ne le déclare généralement qu'une fois dans un projet, alors autant bien l
 Que l'on conserve une version  **en minuscules ou en majuscules**, ce n'est pas important, l'important est d'utiliser un `doctype` HTML5 qui est celui-ci.
 
 <aside class="warning">
-	Cet élément doit être le premier octet de votre document. Pas d'espace avant, pas de saut de ligne, rien…
+	Cet élément doit être le premier octet de votre document. Pas d'espace avant, pas de saut de ligne, rien… Pensez-y lors de l'utilisation de langages dynamiques.
 </aside>
 
 
@@ -38,7 +38,7 @@ Que l'on conserve une version  **en minuscules ou en majuscules**, ce n'est pas 
 <html lang="en">
 ```
 
-Les deux sont à renseigner dans votre document, pas de `html` sans `lang`,jamais.
+Les deux sont à renseigner dans votre document, pas de `html` sans `lang`, jamais.
 
 Cela permet d'éviter des comportements étranges comme la lecture de certains textes anglais en polonais par un lecteur d'écran chinois.
 
@@ -59,7 +59,7 @@ L'attribut `lang` peut être très précis ou plus générique, du moment qu'il 
 
 Alors oui, HTML5 permet de s'en passer, mais dans un objectif de clarté et de lisibilité, leur utilisation doit être explicite.
 
-Concernant leur indentation au sein de l'élément `html` lui-même, elle n'est pas obligatoire.
+Concernant leur [indentation](#indentation-et-imbrication) au sein de l'élément `html` lui-même, elle n'est pas obligatoire.
 
 
 
@@ -102,6 +102,8 @@ Nous ne cherchons pas à gagner de la place dans le code, ou à minifier manuell
 
 Pensez-y également lorsque le code est généré dynamiquement en PHP ou Python (ce qui sera souvent notre cas). Les seules exceptions à la règle seront les sorties mal formattées de certaines fonctions de WordPress, ou d'une librairie PHP ou Python.
 
+<aside class="notice">Les éléments <code>head</code> et <code>body</code> n'ont aucune obligation à être indentés.</aside>
+
 
 
 ## Fermeture de balise
@@ -123,6 +125,8 @@ Pensez-y également lorsque le code est généré dynamiquement en PHP ou Python
 ```
 
 Différentes versions de HTML permettent l'absence des balises de fermeture pour certains éléments. Pour des raisons de lisibilité et pour expliciter la structure, toutes les balises nécessitant d'être fermées doivent l'être explicitement.
+
+Cette manière d'écrire permet également de ne pas mélanger balise à fermer et balises auto-fermantes, puisque dans notre cas nous n'auto-fermons plus les balises d'un `/`.
 
 
 
@@ -216,9 +220,37 @@ L'utilisation de l'élément `button` est à préférer car il permet d'enrichir
 
 
 
+## Où et quand utiliser `id` et `class`.
 
 
+```html
+
+<!-- Code sample 1 -->
+<div class="flex"></div>
 
 
-- Où et quand utiliser ID et Class.
-- 
+<!-- Code sample 2 -->
+<a href="#about">About</a>
+<div id="about" class="flex"></div>
+
+
+<!-- Code sample 3 -->
+<p id="ul-desc">Awesome list</p>
+<ul aria-labelledby="ul-desc"></ul>
+```
+
+```css
+/* Code sample 4 */
+[id="about"] {
+}
+```
+
+La règle de base est d'utiliser les classes pour styler les éléments (exemple de code 1), et les identifiants pour créer des ancres (exemple de code 2) ou définir l'identité d'une section ou d'un sous élément.
+
+Dans d'autres besoins "externes", les identifiants peuvent être utiles pour coller avec les besoins de l'API ARIA (exemple de code 3) ou des besoins liés à JavaScript. Ce dernier cas doit rester rare et contrôlé, car dire qu'un ID est utile pour du JavaScript, c'est rendre dépendant le script à un DOM très particulier.
+
+En effet, dans le fonctionnement modulaire, il vaut mieux éviter d'utiliser les identifiants qui risques d'être dupliqués à la réutilisation d'un module. (exemple : deux widgets identiques avec des contenus différents risquerait d'avoir des identifiants identiques)
+
+Sauf cas très exceptionnel (non-maîtrise du DOM), CSS ne doit pas styler les éléments en incluant un sélecteur d'identifiant. Cependant, le problème de poids du sélecteur ID peut-être contourné en utilisant le sélecteur d'attribut. (exemple de code 4)
+
+<aside class="notice">Certains lecteurs d'écran permettent l'enregistrement de l'identifiant d'une section afin d'y revenir plus tard plus rapidement, pour sauter vers cette section enregistrée.</aside>
