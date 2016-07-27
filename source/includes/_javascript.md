@@ -57,3 +57,17 @@ output += '</div>';
 
 L'idéal est de conserver l'indentation lorsque vous composez un balisage directement dans JS. Il est ainsi plus aisé de retrouver qui est le parent de qui, notamment dans un ensemble complexe.
 
+## jQuery: Événements custom
+
+```js
+$( 'a' ).on( 'namespace:action', 'doSomething' );
+```
+
+> N'écrivez pas
+
+```js
+$( 'a' ).on( 'nawakAction', 'doSomething' );
+
+```
+
+L'idéal est de conserver l'indentation lorsque vous composez un balisage directement dans JS. Il est ainsi plus aisé de retrouver qui est le parent de qui, notamment dans un ensemble complexe.
