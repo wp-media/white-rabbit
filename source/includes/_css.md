@@ -1,14 +1,14 @@
 # CSS
 
-Nous n'allons pas utiliser les termes CSS 2.1, ou CSS 3. Nous ne parlerons que de CSS.
+We will not use the terms CSS 2.1 or CSS 3. We will only talk about CSS.
 
-Aujourd'hui il est rare d'utiliser CSS sans pré-processeur (ou post-processeur). Cette partie de la convention va donc mêler les deux usages.
+Today, it's really rare coding CSS without using a pre-processor (or post-processor). This part of this convention will merge both usages: with and without pre-processor.
 
-Cette convention tente de fusionner les bonnes pratiques proposées par les méthodes [SMACSS](https://www.creativejuiz.fr/blog/css-css3/smacss-en-francais-organiser-css-efficacement), [OOCSS et BEM](http://www.alsacreations.com/article/lire/1641-bonnes-pratiques-en-css-bem-et-oocss.html).
+This convention try to merge good practices proposed by methodes like [SMACSS](https://smacss.com/), [OOCSS](http://oocss.org/) and [BEM](http://getbem.com/introduction/). Sometimes, we will introduce usual classes like [Atomic CSS](https://github.com/nemophrost/atomic-css) propose.
 
-<aside class="notice">Le nom des classes doit être en anglais</aside>
+<aside class="notice"><strong>Important:</strong> Class name have to be in english</aside>
 
-## Le sélecteur : espaces
+## Selector: spaces
 
 ```css
 .element {}
@@ -16,7 +16,7 @@ Cette convention tente de fusionner les bonnes pratiques proposées par les mét
 .element + .siblings {}
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```css
 .element{}
@@ -24,44 +24,44 @@ Cette convention tente de fusionner les bonnes pratiques proposées par les mét
 .element+.siblings{}
 ```
 
-Aérez ! Ne collez pas les éléments les uns aux autres, utilisez **une** espace pour les séparer, et pas davantage.
+Ventilate! Don't stick each elements to another, use **a** space to separate them, and no more than one space.
 
 
 
-## Le sélecteur : multiple
+## Selector : multiple elements
 
 ```css
 .element-1,
 .element-2 {}
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```css
 .element-1, .element-2 {}
 ```
 
-Lorsque vous concaténez plusieurs sélecteurs, sautez une ligne à chaque nouveaux sélecteur afin de les rendre plus lisibles. C'est plus facile ainsi que d'aller chercher un sélecteur dans une liste de 5 ou 6 éléments concaténés.
+When you need to concatenate several selectors, put one selector by line to make them more readable. It's easier to do so than being looking for an item in a list of 6 ou 7 elements in the same line. Trust me.
 
 
 
-## Le sélecteur : d'attribut
+## Selector : of attribute
 
 ```css
 .element[attr="value"] {}
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```css
 .element[attr=value] {}
 ```
 
-Les deux sont valides, mais s'il fallait en choisir un autant conserver la même syntaxe qu'en HTML. De plus il s'agit de celle recommandée par le W3C.
+Both are valid, but if you'd have to chose only one, you'd better keep the same syntax as HTML syntax. Moreover, it's the one recommended by the W3C.
 
 
 
-## Le sélecteur : indentation de parentée
+## Selector : indentation of kindred
 
 ```css
 .element {}
@@ -69,7 +69,7 @@ Les deux sont valides, mais s'il fallait en choisir un autant conserver la même
 .element-child {}
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```css
 .element {}
@@ -77,13 +77,13 @@ Les deux sont valides, mais s'il fallait en choisir un autant conserver la même
 	.element-child {}
 ```
 
-Dans l'idéal, commencez par déclarer les styles des parents, puis des enfants, dans l'ordre de lecture, cela facilité la lecture de l'héritage propre à CSS.
+The best way is to follow a logical order to declare your selector. Begin with the parents, then the children, in the same order of the DOM. It makes the thing easy when you read and look for heritage inside your own CSS document.
 
-Cependant, n'affichez pas le lien de parenté d'un élément à un autre en indentant l'élément enfant comme vous le feriez en HTML. Cette syntaxe apporte trop de confusion par rapport à celle proposée par les pré-processeurs.
+However, don't show the kindred link between elements by indenting child under the parent like you should do with you HTML code. This syntax brings to much confusion regarding the syntax proposed by and for the pre-processors.
 
 
 
-## La propriété : les raccourcis
+## Property : the shorthand
 
 ```css
 .element {
@@ -91,7 +91,7 @@ Cependant, n'affichez pas le lien de parenté d'un élément à un autre en inde
 }
 ```
 
-> et 
+> and
 
 ```css
 .element {
@@ -103,27 +103,29 @@ Cependant, n'affichez pas le lien de parenté d'un élément à un autre en inde
 }
 ```
 
-[Le raccourci des propriétés](https://developer.mozilla.org/fr/docs/Web/CSS/Propri%C3%A9t%C3%A9s_raccourcies) **est libre**.<br>
-Si vous n'êtes pas familiers avec cette syntaxe, il vaut mieux expliciter les propriétés que de se planter sur le raccourci.
+[Shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties) ** is up to you**.<br>
+If you are not a friend of the short syntax, you'd better use complete and explicit properties instead of doing a wrong shorthand.
 
-Les versions non raccourcies sont de toutes manières utiles lors de l'édition d'une seule des "sous-propriétés" dans le cadre d'un héritage et d'un besoin de modification.
+In anyway, the shorthand properties are useful when you need to re-declare one of the "sub-property", in a case of heritage. (e.i. a sprites and the `background`/`background-position` properties)
 
-__A PRECISER__
+Think about that: you maybe not have to re-declare all the properties in a shorthand. Use the CSS heritage.
+
+By default, try to be explicit as well as possible when you begin to have a complex property like multiple background to increase the readability of your code.
 
 
-## La règle : présentation
+## Rule : presentation
 
 ```css
 display: flex;
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```css
 display :flex
 ```
 
-La composition d'une règle se forme toujours du nom de la propriété suivie d'un deux-points puis d'une espace, de la valeur de la propriété et d'un point-virgule.
+A rule is composed with the **property name**, then a **colon** (without space between), then a **white-space**, then the **property value**, and at the end a **semi-colon**.
 
 
 
