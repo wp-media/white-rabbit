@@ -35,11 +35,25 @@ var els = document.querySelectorAll("[data-lol=\"plop\"]");
 ## Concaténation
 
 ```js
+var output =  '<div>'
+				+ '<p>'
+					+ '…'
+				+ '</p>'
+			+ '</div>';
 
 ```
 
 > N'écrivez pas
 
 ```js
+var output = '<div>';
+
+output += '<p>';
+output += '…';
+output += '</p>';
+output += '</div>';
 
 ```
+
+L'idéal est de conserver l'indentation lorsque vous composez un balisage directement dans JS. Il est ainsi plus aisé de retrouver qui est le parent de qui, notamment dans un ensemble complexe.
+
