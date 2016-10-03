@@ -2,37 +2,37 @@
 
 
 
-## Quels guillemets et quand ?
+## Which quotes and when?
 
 ```js
 var variable = 'Value';
 ```
 
-> N'écrivez pas
+> Don’t write
 
 ```js
 var variable = "Value";
 ```
 
-Comme nous l'avons vu pour les [guillemets en HTML](#simple-ou-double), les **_double_** sont réservés aux attributs HTML. Nous gardons les **_simple_** pour JavaScript et ses valeurs.
+As we saw it before with the [Quotes in HTML](#simple-or-double), the **_double_**-quotes are reserved to HTML attributes. We keep the **_simple_**-quotes for JavaScript and its values.
 
-L'idée de base est de conserver la syntaxe HTML quand on fait un lien entre JavaScript et HTML. Il est plus simple d'écrire une valeur sans devoir échaper son contenu et sans modifier la syntaxe du HTML.
+The main idea in there is to always have the same HTML syntaxe, even if we are writing HTML inside JavaScript code. Writing a value with no need to escape its content and without editing HTML is much more easy.
 
 
-> En effet il est plus simple d'écrire :
+> Indeed, easier to write:
 
 ```js
 var els = document.querySelectorAll('[data-lol="plop"]');
 ```
 
-> que :
+> than:
 
 ```js
 var els = document.querySelectorAll("[data-lol=\"plop\"]");
 ```
 
 
-## Concaténation
+## Concatenation
 
 ```js
 var output =  '<div>'
@@ -43,7 +43,7 @@ var output =  '<div>'
 
 ```
 
-> N'écrivez pas
+> Don’t write
 
 ```js
 var output = '<div>';
@@ -55,19 +55,37 @@ output += '</div>';
 
 ```
 
-L'idéal est de conserver l'indentation lorsque vous composez un balisage directement dans JS. Il est ainsi plus aisé de retrouver qui est le parent de qui, notamment dans un ensemble complexe.
+The best would be to keep indentation when you write HTML directly in JavaScript. It’s easier to find who is who (parent, children, siblings), especially when the DOM is becoming intricate.
 
-## jQuery: Événements custom
+## jQuery: Namespaced Events
+
+```js
+$( 'a' ).on(  'click.secupress', 'doSomething' );
+$( 'a' ).off( 'click.secupress', 'doSomething' );
+```
+
+> Don’t write
+
+```js
+$( 'a' ).on( 'click', 'doSomething' );
+
+```
+
+To avoid conflicts or overwritten actions in a context like plugin or theme developement, you should make a practice of adding a name space to all your generic events.
+It’s not complicated, just compose your action with `action.slug` where slug is whatever you want, at least a reserved slug for our plugin or theme.
+
+## jQuery: Custom Events
 
 ```js
 $( 'a' ).on( 'namespace:action', 'doSomething' );
 ```
 
-> N'écrivez pas
+> Don't write
 
 ```js
 $( 'a' ).on( 'nawakAction', 'doSomething' );
 
 ```
 
-L'idéal est de conserver l'indentation lorsque vous composez un balisage directement dans JS. Il est ainsi plus aisé de retrouver qui est le parent de qui, notamment dans un ensemble complexe.
+When you need to create a custom event, you can theorically use any word you want like `$.on('somethingStrange')`, or `$.on('yolo.code')`. Though, we will use the form proposed next to in order to avoid confusion with namespaced generic events `click.namespace`.
+For example, in SecuPress project, a custom event could be `$.on('secupress:scan')`.
